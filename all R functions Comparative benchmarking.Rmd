@@ -74,7 +74,6 @@ pred.write.vary.cols <- predict(refs.write.vary.cols)
 
 gg.write <- plot(pred.write.vary.cols)+
   theme(text=element_text(size=20))+
-  ggtitle(sprintf("Write real numbers to CSV, \n%d x N", n.rows))+
   scale_x_log10("N = number of columns to write")+
   scale_y_log10("Computation time (seconds)
 median line, \nmin/max band
@@ -142,7 +141,6 @@ pred.read.vary.cols <- predict(refs.read.vary.cols)
 
 gg.read <- plot(pred.read.vary.cols)+
   theme(text=element_text(size=20))+
-  ggtitle(sprintf("Read real numbers from CSV, %d x N", n.rows))+
   scale_x_log10("N = number of columns to read")+
   scale_y_log10("Computation time (seconds)
 median line, min/max band
@@ -232,7 +230,6 @@ ml.refs <- atime::references_best(ml.atime)
 ml.pred <- predict(ml.refs)
 ml.gg <- plot(ml.pred)+
   theme(text=element_text(size=20))+
-  ggtitle(sprintf("Mean,SD,Length over %d real numbers, N times", n.folds))+
   scale_x_log10("N = number of Mean,SD,Length to compute")+
   scale_y_log10("Computation time (seconds)
 median line, min/max band
@@ -296,7 +293,6 @@ ml.reshape.refs <- atime::references_best(ml.reshape.atime)
 ml.reshape.pred <- predict(ml.reshape.refs)
 ml.reshape <- plot(ml.reshape.pred)+
   theme(text=element_text(size=17))+
-  ggtitle(sprintf("Reshaping from wide to long over %dreal numbers, N times", n.folds))+
   scale_x_log10("N")+
   scale_y_log10("Computation time (seconds)
 median line, min/max band
@@ -361,7 +357,6 @@ ml.wide.refs <- atime::references_best(ml.wide.atime)
 ml.wide.pred <- predict(ml.wide.refs)
 ml.wide <- plot(ml.wide.pred)+
   theme(text=element_text(size=20))+
-  ggtitle(sprintf("Reshaping from long to wide over \n%dreal numbers,N times", n.folds))+
   scale_x_log10("N")+
   scale_y_log10("Computation time (seconds)
 median line, min/max band

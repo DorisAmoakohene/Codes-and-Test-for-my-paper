@@ -7,13 +7,18 @@ output: html_document
 
 
 Reference best test
+```{r}
+library(atime)
+library(ggplot2)
+```
+
 
 ```{r}
 ## When studying asymptotic complexity, always provide sizes on a log
 ## scale (10^sequence) as below:
 (subject.size.vec <- unique(as.integer(10^seq(0,3.5,l=100))))
 ## Compute asymptotic time and memory measurement:
-atime.list <- atime::atime(
+atime.list.ref <- atime::atime(
   N=subject.size.vec,#vector of sizes.
   setup={#Run for each size, before timings:
     subject <- paste(rep("a", N), collapse="")
@@ -26,37 +31,99 @@ atime.list <- atime::atime(
   TRE.match=regexpr(pattern, subject, perl=FALSE),
   constant.replacement=gsub("a","constant size replacement",subject),
   linear.replacement=gsub("a",subject,subject))
-atime.list
-plot(atime.list)
+
+atime.list.ref
+
+plot(atime.list.ref)
+
+
+# png()
+# print(atime.list.ref)
+# plot(atime.list.ref)
+# ggsave("atime.list.ref.png", atime.list.ref, width = 10, height = 6, units = "in", dpi = 300)
+# dev.off()
+# 
+# atime.list.ref
+# plot(atime.list.ref)
+```
+
+
+```{r}
 ## Compute and plot asymptotic reference lines:
-(best.list <- atime::references_best(atime.list))
+(best.list <- atime::references_best(atime.list.ref))
 plot(best.list)
+
+# png()
+# print(best.list)
+# ggsave("best.list.png", best.list, width = 10, height = 6, units = "in", dpi = 300)
+# dev.off()
+# 
+# best.list
+# plot(best.list)
+```
+
+
+```{r}
 ## Compute and plot data size N for given time/memory.
 pred.list <- predict(best.list, seconds=1e-2, kilobytes=10)
 plot(pred.list)
+
+# png()
+# print(pred.list)
+# ggsave("pred.list.png", pred.list, width = 10, height = 6, units = "in", dpi = 300)
+# dev.off()
+# 
+# pred.list
+# plot(pred.list)
 ```
+
 
 ```{r}
 subject.size.vec <- unique(as.integer(10^seq(0,3.5,l=100)))
-atime.list
-plot(atime.list)
+atime.list.ref
+plot(atime.list.ref)
 
+png()
+print(atime.list.ref)
+plot(atime.list.ref)
+ggsave("atime.list.ref.png", atime.list.ref, width = 10, height = 6, units = "in", dpi = 300)
+dev.off()
+
+atime.list.ref
+plot(atime.list.ref)
 
 ```
 
 
 
 ```{r}
-best.list <- atime::references_best(atime.list)
-plot(best.list)
+best.list.1 <- atime::references_best(atime.list.ref)
+plot(best.list.1)
 
+plot(best.list.1)
 
+png()
+print(best.list.1)
+ggsave("best.list.1.png", best.list.1, width = 10, height = 6, units = "in", dpi = 300)
+dev.off()
+
+best.list.1
+plot(best.list.1)
 ```
 
 ```{r}
-atime.list[["measurements"]][N==323, .(expr.name, seconds=median, kilobytes)]
-pred.list <- predict(best.list, seconds=1e-2, kilobytes=10)
-pred.list[["prediction"]]
-plot(pred.list)
+atime.list.ref[["measurements"]][N==323, .(expr.name, seconds=median, kilobytes)]
+pred.list.2 <- predict(best.list, seconds=1e-2, kilobytes=10)
+pred.list.2[["prediction"]]
+plot(pred.list.2)
+
+png()
+print(pred.list.2)
+ggsave("pred.list.2.png", pred.list.2, width = 10, height = 6, units = "in", dpi = 300)
+dev.off()
+
+pred.list.2
+plot(pred.list.2)
+
 ```
 
