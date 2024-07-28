@@ -1,0 +1,62 @@
+---
+title: "Reference best"
+author: "Doris Amoakohene"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+
+Reference best test
+
+```{r}
+## When studying asymptotic complexity, always provide sizes on a log
+## scale (10^sequence) as below:
+(subject.size.vec <- unique(as.integer(10^seq(0,3.5,l=100))))
+## Compute asymptotic time and memory measurement:
+atime.list <- atime::atime(
+  N=subject.size.vec,#vector of sizes.
+  setup={#Run for each size, before timings:
+    subject <- paste(rep("a", N), collapse="")
+    pattern <- paste(rep(c("a?", "a"), each=N), collapse="")
+  },
+  times=10,#number of timings to compute for each expression.
+  seconds.limit=0.1,#max seconds per expression.
+  ## Different expressions which will be evaluated for each size N:
+  PCRE.match=regexpr(pattern, subject, perl=TRUE),
+  TRE.match=regexpr(pattern, subject, perl=FALSE),
+  constant.replacement=gsub("a","constant size replacement",subject),
+  linear.replacement=gsub("a",subject,subject))
+atime.list
+plot(atime.list)
+## Compute and plot asymptotic reference lines:
+(best.list <- atime::references_best(atime.list))
+plot(best.list)
+## Compute and plot data size N for given time/memory.
+pred.list <- predict(best.list, seconds=1e-2, kilobytes=10)
+plot(pred.list)
+```
+
+```{r}
+subject.size.vec <- unique(as.integer(10^seq(0,3.5,l=100)))
+atime.list
+plot(atime.list)
+
+
+```
+
+
+
+```{r}
+best.list <- atime::references_best(atime.list)
+plot(best.list)
+
+
+```
+
+```{r}
+atime.list[["measurements"]][N==323, .(expr.name, seconds=median, kilobytes)]
+pred.list <- predict(best.list, seconds=1e-2, kilobytes=10)
+pred.list[["prediction"]]
+plot(pred.list)
+```
+
