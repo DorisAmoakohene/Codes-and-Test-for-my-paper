@@ -178,7 +178,7 @@ dev.off()
 pred.read.vary.cols <- predict(refs.read.vary.cols)
 
 png("pred.read.vary.cols.png")
-plot(pred.read.vary.cols.cols)#+
+plot(pred.read.vary.cols)#+
 #   labs(title = "pred.read.vary.cols")
 dev.off()
 
@@ -195,7 +195,7 @@ dev.off()
 
 ```{r,warning=FALSE,message=FALSE}
 gg.read.pd <- plot(pred.read.vary.cols)+
-  theme(text=element_text(size=15))#+
+  theme(text=element_text(size=15))+
   # ggtitle(sprintf("Read real numbers to CSV, \nwith pandas in Python \nand data.table in R, \n%d x N", n.rows))+
   scale_x_log10("N = number of columns to write")+
   scale_y_log10("Computation time (seconds)
@@ -268,24 +268,24 @@ ml.reshape.atime <- atime::atime(
 ```{r,warning=FALSE,message=FALSE}
 ml.reshape.refs <- atime::references_best(ml.reshape.atime)
 
-png()
-print(ml.reshape.refs)
-ggsave("ml.reshape.refs", ml.reshape.refs, width = 10, height = 6, units = "in", dpi = 300)
-dev.off()
-
-ml.reshape.refs
-plot(ml.reshape.refs)
+# png()
+# print(ml.reshape.refs)
+# ggsave("ml.reshape.refs", ml.reshape.refs, width = 10, height = 6, units = "in", dpi = 300)
+# dev.off()
+# 
+# ml.reshape.refs
+# plot(ml.reshape.refs)
 ```
 
 
 
 ```{r,warning=FALSE,message=FALSE}
 ml.reshape.pred <- predict(ml.reshape.refs)
-
-png()
-print(ml.reshape.pred)
-ggsave("ml.reshape.pred", ml.reshape.pred, width = 10, height = 6, units = "in", dpi = 300)
-dev.off()
+# 
+# png()
+# print(ml.reshape.pred)
+# ggsave("ml.reshape.pred.png", ml.reshape.pred, width = 10, height = 6, units = "in", dpi = 300)
+# dev.off()
 
 ml.reshape.pred
 
@@ -309,7 +309,7 @@ over 10 timings")+
 ```{r, warning=FALSE, message=FALSE}
 png()
 print(ml.wide2long.pd)
-ggsave("ml.wide2long.pd", ml.wide2long.pd, width = 10, height = 6, units = "in", dpi = 300)
+ggsave("ml.wide2long.pd.png", ml.wide2long.pd, width = 10, height = 6, units = "in", dpi = 300)
 dev.off()
 
 ml.wide2long.pd
@@ -363,10 +363,10 @@ ml.long2wide.atime <- atime::atime(
 ```{r,warning=FALSE,message=FALSE}
 ml.long2wide.refs <- atime::references_best(ml.long2wide.atime)
 
-png()
-print(ml.long2wide.refs)
-ggsave("ml.long2wide.refs", ml.long2wide.refs, width = 10, height = 6, units = "in", dpi = 300)
-dev.off()
+# png()
+# print(ml.long2wide.refs)
+# ggsave("ml.long2wide.refs.png", ml.long2wide.refs, width = 10, height = 6, units = "in", dpi = 300)
+# dev.off()
 
 ml.long2wide.refs
 
@@ -377,12 +377,12 @@ plot(ml.long2wide.refs)
 ```{r,warning=FALSE,message=FALSE}
 ml.long2wide.pred <- predict(ml.long2wide.refs)
 
-png()
-print(ml.long2wide.pred)
-ggsave("ml.long2wide.pred", ml.long2wide.pred, width = 10, height = 6, units = "in", dpi = 300)
-dev.off()
-
-ml.long2wide.pred
+# png()
+# print(ml.long2wide.pred)
+# ggsave("ml.long2wide.pred.png", ml.long2wide.pred, width = 10, height = 6, units = "in", dpi = 300)
+# dev.off()
+# 
+# ml.long2wide.pred
 
 plot(ml.long2wide.pred)
 ```
@@ -407,7 +407,7 @@ plot(ml.long2wide)
 
 png()
 print(ml.long2wide)
-ggsave("ml.long2wide", ml.long2wide, width = 10, height = 6, units = "in", dpi = 300)
+ggsave("ml.long2wide.png", ml.long2wide, width = 10, height = 6, units = "in", dpi = 300)
 dev.off()
 
 ml.long2wide
