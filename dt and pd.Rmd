@@ -62,22 +62,25 @@ atime.write.vary.cols <- atime::atime(
 )
 ```
 
+
+
+
 ```{r,warning=FALSE,message=FALSE}
 refs.write.vary.cols <- atime::references_best(atime.write.vary.cols)
 
+
 png("refs.write.vary.cols.png")
-plot(refs.write.vary.cols)+
-  labs(title = "refs.write.vary.cols")
+plot(refs.write.vary.cols)
 dev.off()
 
-plot(refs.write.vary.cols)
-png()
-print(refs.write.vary.cols)
-ggsave("refs.write.vary.cols", refs.write.vary.cols, width = 10, height = 6, units = "in", dpi = 300)
-dev.off()
-
-refs.write.vary.cols
-plot(refs.write.vary.cols)
+# plot(refs.write.vary.cols)
+# png()
+# print(refs.write.vary.cols)
+# ggsave("refs.write.vary.cols", refs.write.vary.cols, width = 10, height = 6, units = "in", dpi = 300)
+# dev.off()
+# 
+# refs.write.vary.cols
+# plot(refs.write.vary.cols)
 ```
 
 
@@ -85,8 +88,7 @@ plot(refs.write.vary.cols)
 pred.write.vary.cols <- predict(refs.write.vary.cols)
 
 png("pred.write.vary.cols.png")
-plot(pred.write.vary.cols)+
-  labs(title = "pred.write.vary.cols")
+plot(pred.write.vary.cols)
 dev.off()
 
 
@@ -96,7 +98,6 @@ plot(pred.write.vary.cols)
 ```{r}
 gg.write.dt.pd <- plot(pred.write.vary.cols) +
   theme(text = element_text(size = 15)) +
-  ggtitle(sprintf("Write real numbers to CSV, \nwith pandas in Python \nand data.table in R, \n%d x N", n.rows)) +
   scale_x_log10("N = number of columns to write") +
   scale_y_log10("Computation time (seconds)\nmedian line, min/max band\nover 10 timings") +
   facet_null() +
@@ -109,8 +110,7 @@ gg.write.dt.pd <- plot(pred.write.vary.cols) +
 plot(pred.write.vary.cols)
 
 png("gg.write.dt.pd")
-plot(gg.write.dt.pd)+
-  labs(title = "gg.write.dt.pd")
+plot(gg.write.dt.pd)
 dev.off()
 
 print(gg.write.dt.pd)
@@ -161,17 +161,16 @@ refs.read.vary.cols <- atime::references_best(atime.read)
 
 
 png("refs.read.vary.cols.png")
-plot(refs.read.vary.cols)+
-  labs(title = "refs.read.vary.cols")
-dev.off()
-
-png()
-print(refs.read.vary.cols)
-ggsave("refs.read.vary.cols", refs.read.vary.cols, width = 10, height = 6, units = "in", dpi = 300)
-dev.off()
-
-refs.read.vary.cols
 plot(refs.read.vary.cols)
+dev.off()
+
+# png()
+# print(refs.read.vary.cols)
+# ggsave("refs.read.vary.cols", refs.read.vary.cols, width = 10, height = 6, units = "in", dpi = 300)
+# dev.off()
+# 
+# refs.read.vary.cols
+# plot(refs.read.vary.cols)
 ```
 
 
@@ -179,25 +178,25 @@ plot(refs.read.vary.cols)
 pred.read.vary.cols <- predict(refs.read.vary.cols)
 
 png("pred.read.vary.cols.png")
-plot(pred.read.vary.cols.cols)+
-  labs(title = "pred.read.vary.cols")
+plot(pred.read.vary.cols.cols)#+
+#   labs(title = "pred.read.vary.cols")
 dev.off()
 
-png()
-print(pred.read.vary.cols)
-ggsave("pred.read.vary.cols", pred.read.vary.cols, width = 10, height = 6, units = "in", dpi = 300)
-dev.off()
-
-pred.read.vary.cols
-plot(pred.read.vary.cols)
+# png()
+# print(pred.read.vary.cols)
+# ggsave("pred.read.vary.cols", pred.read.vary.cols, width = 10, height = 6, units = "in", dpi = 300)
+# dev.off()
+# 
+# pred.read.vary.cols
+# plot(pred.read.vary.cols)
 ```
 
 
 
 ```{r,warning=FALSE,message=FALSE}
 gg.read.pd <- plot(pred.read.vary.cols)+
-  theme(text=element_text(size=15))+
-  ggtitle(sprintf("Read real numbers to CSV, \nwith pandas in Python \nand data.table in R, \n%d x N", n.rows))+
+  theme(text=element_text(size=15))#+
+  # ggtitle(sprintf("Read real numbers to CSV, \nwith pandas in Python \nand data.table in R, \n%d x N", n.rows))+
   scale_x_log10("N = number of columns to write")+
   scale_y_log10("Computation time (seconds)
 median line, min/max band
@@ -211,16 +210,16 @@ over 10 timings")+
 plot(gg.read.pd)
 
 png("gg.read.pd.png")
-plot(gg.read.pd)+
-  labs(title = "gg.read.pd")
+ plot(gg.read.pd)#+
+#   labs(title = "gg.read.pd")
 dev.off()
 
-png()
-print(gg.read.pd)
-ggsave("gg.read.pd", gg.read.pd, width = 10, height = 6, units = "in", dpi = 300)
-dev.off()
-
-gg.read.pd
+# png()
+# print(gg.read.pd)
+# ggsave("gg.read.pd", gg.read.pd, width = 10, height = 6, units = "in", dpi = 300)
+# dev.off()
+# 
+# gg.read.pd
 ```
 
 
@@ -297,7 +296,7 @@ plot(ml.reshape.pred)
 ```{r,warning=FALSE,message=FALSE}
 ml.wide2long.pd <- plot(ml.reshape.pred)+
   theme(text=element_text(size=15))+
-  ggtitle(sprintf("Reshaping from wide \nto long panda & data.table \nover real numbers, \nN times", n.folds))+
+  # ggtitle(sprintf("Reshaping from wide \nto long panda & data.table \nover real numbers, \nN times", n.folds))+
   scale_x_log10("N = number of Mean,SD,Length to compute")+
   scale_y_log10("Computation time (seconds)
 median line, min/max band
@@ -392,7 +391,7 @@ plot(ml.long2wide.pred)
 ```{r,warning=FALSE,message=FALSE}
 ml.long2wide <- plot(ml.long2wide.pred)+
   theme(text=element_text(size=15))+
-  ggtitle(sprintf("Reshaping from \nlong to wide over real numbers, \nN times", n.folds))+
+  # ggtitle(sprintf("Reshaping from \nlong to wide over real numbers, \nN times", n.folds))+
   scale_x_log10("N = number of Mean,SD,Length to compute")+
   scale_y_log10("Computation time (seconds)
 median line, min/max band
@@ -412,4 +411,20 @@ ggsave("ml.long2wide", ml.long2wide, width = 10, height = 6, units = "in", dpi =
 dev.off()
 
 ml.long2wide
+```
+
+
+
+
+
+```{r}
+
+png("atime.list.5427.png",res = 600, width = 5, height = 3, unit = "in")
+atime.list.5427 = ggplot()+
+  geom_line(aes(x = N, y = median, group = expr.name, colour = expr.name), data =  atime.list.5427$measurements)+
+  geom_ribbon(aes(x = N, ymin = min, ymax = max, fill = expr.name), data = atime.list.5427$measurements, alpha = 0.5 )+
+  scale_x_log10("N = data size",limits = c(NA, 1e9))+
+  scale_y_log10("Computational Time (Seconds)")
+directlabels::direct.label(atime.list.5427, list(cex = 0.8, "right.polygons"))
+dev.off()
 ```
