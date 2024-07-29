@@ -78,60 +78,19 @@ pkg.edit.fun=function(old.Package, new.Package, sha, new.pkg.path){
 
 
 ```{r}
-png("atime.list.4200.png", res = 200, width = 5, height = 3, unit = "in")
-plot(atime.list.4200) +
-  labs(title = "groupby with dogroups (R expression) \nperformance regression", )
-dev.off()
-```
-
-
-
-
-
-```{r}
-png()
-new.gg = ggplot()+
-  geom_line(aes(x = N, y = median), data =  atime.list.4200$measurements)
-dev.off()
-
-```
-
-
-```{r}
-
-png("new.gg.png",res = 600, width = 5, height = 3, unit = "in")
-new.gg = ggplot()+
+png("atime.list.4200.png",res = 600, width = 5, height = 3, unit = "in")
+atime.list.4200 = ggplot()+
   geom_line(aes(x = N, y = median, group = expr.name, colour = expr.name), data =  atime.list.4200$measurements)+
   geom_ribbon(aes(x = N, ymin = min, ymax = max, fill = expr.name), data = atime.list.4200$measurements, alpha = 0.5 )+
   scale_x_log10("N = data size",limits = c(NA, 1e5))+
   scale_y_log10("Computational Time (Seconds)")
-directlabels::direct.label(new.gg, list(cex = 0.8, "right.polygons"))
+directlabels::direct.label(atime.list.4200, list(cex = 0.8, "right.polygons"))
+
 dev.off()
 ```
 
 
-
 second Test
-
-
- 
-```{r}
-
-
-
-library(atime)
-library(ggplot2)
-library(data.table)
-
-```
-
-```{r}
-  tdir <- tempfile()
-  dir.create(tdir)
-  git2r::clone("https://github.com/Rdatatable/data.table", tdir)
-  
-```
-
 
 ```{r}
 
@@ -180,39 +139,18 @@ atime.list.5427 <- atime::atime_versions(
 ```
 
 
-```{r}
-plot(atime.list.5427)+
-  labs(title = "setDT extremely slow for very wide input #5426")
-
-png("atime.list.5427.png", res = 600, width = 13, height = 8, unit = "in")
-plot(atime.list.5427)+
-  labs(title = "setDT extremely slow for very wide input #5426")+
-  theme( plot.title = element_text(size = 30))
-dev.off()
-
-
-```
-
-```{r}
-png()
-new.gg.5427 = ggplot()+
-  geom_line(aes(x = N, y = median), data =  atime.list.4200$measurements)
-dev.off()
-
-```
 
 
 ```{r}
 
-png("new.gg.5427.png",res = 600, width = 5, height = 3, unit = "in")
-new.gg.5427 = ggplot()+
-  geom_line(aes(x = N, y = median, group = expr.name, colour = expr.name), data =  atime.list.4200$measurements)+
-  geom_ribbon(aes(x = N, ymin = min, ymax = max, fill = expr.name), data = atime.list.4200$measurements, alpha = 0.5 )+
-  scale_x_log10("N = data size",limits = c(NA, 1e5))+
+png("atime.list.5427.png",res = 600, width = 5, height = 3, unit = "in")
+atime.list.5427 = ggplot()+
+  geom_line(aes(x = N, y = median, group = expr.name, colour = expr.name), data =  atime.list.5427$measurements)+
+  geom_ribbon(aes(x = N, ymin = min, ymax = max, fill = expr.name), data = atime.list.5427$measurements, alpha = 0.5 )+
+  scale_x_log10("N = data size",limits = c(NA, 1e9))+
   scale_y_log10("Computational Time (Seconds)")
-directlabels::direct.label(new.gg, list(cex = 0.8, "right.polygons"))
+directlabels::direct.label(atime.list.5427, list(cex = 0.8, "right.polygons"))
 dev.off()
 ```
-
 
 
