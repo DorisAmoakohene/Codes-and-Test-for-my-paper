@@ -53,12 +53,23 @@ atime.result <- atime::atime_versions(
     DT = replicate(N, 1, simplify = FALSE)
   },
   expr=data.table:::setDT(DT),
-  "slow"= "c4a2085e35689a108d67dacb2f8261e4964d7e12", #Parent of the first commit in the PR that fixes the issue(https://github.com/Rdatatable/data.table/commit/7cc4da4c1c8e568f655ab5167922dcdb75953801),#last commit in the PR that fixes the issue (https://github.com/Rdatatable/data.table/pull/5427/commits)
+  "Slow"= "c4a2085e35689a108d67dacb2f8261e4964d7e12", #Parent of the first commit in the PR that fixes the issue(https://github.com/Rdatatable/data.table/commit/7cc4da4c1c8e568f655ab5167922dcdb75953801),#last commit in the PR that fixes the issue (https://github.com/Rdatatable/data.table/pull/5427/commits)
   "Fast"="1872f473b20fdcddc5c1b35d79fe9229cd9a1d15",#tag 1.15.4,https://github.com/Rdatatable/data.table/commit/aa75d79376478b3e8f80fd6f31dcf53be8bf3404
-  "Head"="ff900d1e6a8bcfaa0385bd1304af7b90657d3c4d", #lastest commit on the data.table page https://github.com/Rdatatable/data.table/commit/ff900d1e6a8bcfaa0385bd1304af7b90657d3c4d
+  "HEAD"="b8d5f83270d45a47316a41259bedae63f3d2854d", #lastest commit on the data.table page https://github.com/Rdatatable/data.table/commit/b8d5f83270d45a47316a41259bedae63f3d2854d
   "CRAN"="",
-  "BASE"="3e5d038ee4a800104b665ac39392ceed46b1189d" #1.14.6,https://github.com/Rdatatable/data.table/commit/3e5d038ee4a800104b665ac39392ceed46b1189d)
+  "base"="aa75d79376478b3e8f80fd6f31dcf53be8bf3404" #1.15.4,https://github.com/Rdatatable/data.table/commit/aa75d79376478b3e8f80fd6f31dcf53be8bf3404)
 )
+```
+
+```{r}
+   atime.colors <- c(#RColorBrewer::brewer.pal(7, "Dark2")
+      HEAD="#1B9E77",
+      base="#D95F02",
+      CRAN="#E7298A",
+      Before="#66A61E",
+      Regression="#E6AB02", Slow="#E6AB02",
+      Fixed="#A6761D", Fast="#A6761D"
+    )
 ```
 
 
@@ -66,13 +77,15 @@ atime.result <- atime::atime_versions(
 png("GitHub.action.test.png", res = 600, width = 15, height = 10, unit = "in")
 GitHub.action.test = ggplot() +
   geom_line(aes(x = N, y = median, group = expr.name, colour = expr.name), data = atime.result$measurements) +
-  geom_ribbon(aes(x = N, ymin = min, ymax = max, fill = expr.name), data = atime.result$measurements, alpha = 0.7) +
+  geom_ribbon(aes(x = N, ymin = min, ymax = max, fill = expr.name), data = atime.result$measurements, alpha = 0.5) +
   theme(
     plot.title = element_text(size = 30),
     text = element_text(size = 30)
   ) +
-  scale_x_log10("N = data size", limits = c(NA, 1e8)) +
-  scale_y_log10("Computational Time (Seconds)")
+  scale_x_log10("N = number of rows", limits = c(NA, 1e8),breaks = c(1, 10, 100, 1000, 10000, 100000, 1e6, 1e7)) +
+  scale_y_log10("Computational Time (Seconds)")+
+  scale_fill_manual(values=atime.colors)+
+  scale_color_manual(values=atime.colors)
 directlabels::direct.label(GitHub.action.test, list(cex = 3, "right.polygons")) 
 dev.off()
 ```

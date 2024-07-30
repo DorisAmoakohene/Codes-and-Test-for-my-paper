@@ -16,6 +16,24 @@ library(data.table)
 
 ```
 
+
+```{r}
+   atime.colors.1 <- c(#RColorBrewer::brewer.pal(7, "Dark2")
+      Before="#66A61E",
+      Regression="#E6AB02", 
+      Fixed="#A6761D"
+    )
+```
+
+
+```{r}
+   atime.colors.2 <- c(#RColorBrewer::brewer.pal(7, "Dark2")
+     Slow="#E6AB02",
+     Fast="#A6761D"
+    )
+```
+
+
 ```{r}
   tdir <- tempfile()
   dir.create(tdir)
@@ -82,9 +100,11 @@ png("atime.list.4200.png",res = 600, width = 5, height = 3, unit = "in")
 atime.list.4200 = ggplot()+
   geom_line(aes(x = N, y = median, group = expr.name, colour = expr.name), data =  atime.list.4200$measurements)+
   geom_ribbon(aes(x = N, ymin = min, ymax = max, fill = expr.name), data = atime.list.4200$measurements, alpha = 0.5 )+
-  scale_x_log10("N = data size",limits = c(NA, 1e5))+
-  scale_y_log10("Computational Time (Seconds)")
-directlabels::direct.label(atime.list.4200, list(cex = 0.8, "right.polygons"))
+  scale_x_log10("N = number of rows",limits = c(NA, 1e5))+
+  scale_y_log10("Computational Time (Seconds)")+
+  scale_fill_manual(values=atime.colors.1)+
+  scale_color_manual(values=atime.colors.1)
+directlabels::direct.label(atime.list.4200, list(cex = 1, "right.polygons"))
 
 dev.off()
 ```
@@ -133,7 +153,7 @@ atime.list.5427 <- atime::atime_versions(
     DT = replicate(N, 1, simplify = FALSE)
   },
   expr=data.table:::setDT(DT),
-  "slow"= "c4a2085e35689a108d67dacb2f8261e4964d7e12", #Parent of the first commit in the PR that fixes the issue(https://github.com/Rdatatable/data.table/commit/7cc4da4c1c8e568f655ab5167922dcdb75953801),
+  "Slow"= "c4a2085e35689a108d67dacb2f8261e4964d7e12", #Parent of the first commit in the PR that fixes the issue(https://github.com/Rdatatable/data.table/commit/7cc4da4c1c8e568f655ab5167922dcdb75953801),
   
   "Fast"="1872f473b20fdcddc5c1b35d79fe9229cd9a1d15")#last commit in the PR that fixes the issue (https://github.com/Rdatatable/data.table/pull/5427/commits)
 ```
@@ -147,9 +167,11 @@ png("atime.list.5427.png",res = 600, width = 5, height = 3, unit = "in")
 atime.list.5427 = ggplot()+
   geom_line(aes(x = N, y = median, group = expr.name, colour = expr.name), data =  atime.list.5427$measurements)+
   geom_ribbon(aes(x = N, ymin = min, ymax = max, fill = expr.name), data = atime.list.5427$measurements, alpha = 0.5 )+
-  scale_x_log10("N = data size",limits = c(NA, 1e9))+
-  scale_y_log10("Computational Time (Seconds)")
-directlabels::direct.label(atime.list.5427, list(cex = 0.8, "right.polygons"))
+  scale_x_log10("N = number of rows",limits = c(NA, 1e8))+
+  scale_y_log10("Computational Time (Seconds)")+
+  scale_fill_manual(values=atime.colors.2)+
+  scale_color_manual(values=atime.colors.2)
+directlabels::direct.label(atime.list.5427, list(cex = 1, "right.polygons"))
 dev.off()
 ```
 
