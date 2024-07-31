@@ -12,6 +12,74 @@ library(atime)
 library(ggplot2)
 ```
 
+overlapping black
+
+```{r}
+(subject.size.vec <- unique(as.integer(10^seq(0,3.5,l=100))))
+atime.list <- atime::atime(
+  setup={
+    subject <- paste(rep("a", N), collapse="")
+    pattern <- paste(rep(c("a?", "a"), each=N), collapse="")
+  },
+  PCRE.match=regexpr(pattern, subject, perl=TRUE),
+  TRE.match=regexpr(pattern, subject, perl=FALSE),
+  constant.replacement=gsub("a","constant size replacement",subject),
+  linear.replacement=gsub("a",subject,subject),
+  seconds.limit=0.1,
+  times=10,
+  N=subject.size.vec)
+(best.list.R <- atime::references_best(atime.list))
+plot(best.list.R)
+```
+
+
+
+```{r}
+png("best.list.R.png", res = 600, width = 15, height = 10, unit = "in")
+best.list.R = ggplot() +
+  geom_line(aes(x = N, y = median, group = expr.name, colour = expr.name), data = best.list.R$measurements) +
+  geom_ribbon(aes(x = N, ymin = min, ymax = max, fill = expr.name), data = best.list.R$measurements, alpha = 0.5) +
+  theme(
+    plot.title = element_text(size = 30),
+    text = element_text(size = 30)
+  ) +
+  scale_x_log10("N = number of rows", limits = c(NA, 1e4),breaks = c(1, 10, 100, 1000)) +
+  scale_y_log10("Computational Time (Seconds)")+
+  # scale_fill_manual(values=atime.colors)+
+  # scale_color_manual(values=atime.colors)
+#directlabels::direct.label(best.list.R, list(cex = 3, "right.polygons")) 
+dev.off()
+```
+
+
+
+
+```{r}
+atime.list[["measurements"]][N==323, .(expr.name, seconds=median, kilobytes)]
+pred.list <- predict(best.list, seconds=1e-2, kilobytes=10)
+pred.list[["prediction"]]
+plot(pred.list)
+```
+
+
+```{r}
+png("README-predict.png", width=6, height=4, units="in", res=200)
+plot(pred.list)+ggplot2::theme(text=ggplot2::element_text(size=20))
+dev.off()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ```{r}
 ## When studying asymptotic complexity, always provide sizes on a log
